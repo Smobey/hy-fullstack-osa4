@@ -4,14 +4,13 @@ const api = supertest(app)
 const Blog = require('../models/blog')
 const {initialBlogs, blogsInDb} = require('./test_helper')
 
-beforeAll(async () => {
-  await Blog.remove({})
-  
-  const blogObjects = initialBlogs.map(n => new Blog(n))
-  await Promise.all(blogObjects.map(n => n.save()))
-})
-
 describe('HTTP GET', () => {
+  beforeAll(async () => {
+    await Blog.remove({})
+    
+    const blogObjects = initialBlogs.map(n => new Blog(n))
+    await Promise.all(blogObjects.map(n => n.save()))
+  })
 
   test('all blogs are returned as json', async () => {
     const blogsInDatabase = await blogsInDb()
@@ -40,6 +39,12 @@ describe('HTTP GET', () => {
 })
 
 describe('HTTP POST', () => {
+  beforeAll(async () => {
+    await Blog.remove({})
+    
+    const blogObjects = initialBlogs.map(n => new Blog(n))
+    await Promise.all(blogObjects.map(n => n.save()))
+  })
 
   test('a valid blog can be added ', async () => {
     const newBlog = {

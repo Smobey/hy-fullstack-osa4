@@ -38,7 +38,6 @@ const format = (blog) => {
 
 const blogsInDb = async () => {
     const blogs = await Blog.find({})
-    console.log("AAAAAAA", blogs)
     return blogs.map(format)
 }
 
