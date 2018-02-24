@@ -11,6 +11,7 @@ usersRouter.post('/', async (request, response) => {
 
       if (body.password.length < 4) {
         response.status(403).json({ error: 'Password too short (min. 4 characters)' })
+        return
       }
 
       const user = new User({
@@ -29,8 +30,9 @@ usersRouter.post('/', async (request, response) => {
       if (exception.message.includes("duplicate key")) {
         response.status(403).json({ error: 'Duplicate username' })
       }
-
-      response.status(500).json({ error: 'something went wrong...' })
+      else {
+        response.status(500).json({ error: 'something went wrong...' })
+      }
     }
 })
 
